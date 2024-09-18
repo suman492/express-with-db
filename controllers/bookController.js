@@ -28,3 +28,14 @@ exports.getBookById = async (req, res) => {
         res.status(400).send(err.message);
     }
 };
+
+exports.updateBook = async (req, res) => {
+    try {
+        const bookById = await BookModel.findByIdAndUpdate(req.params.id, { title: req.body.title, author: req.body.author }, { new: true });
+        if (!bookById) return res.status(404).send('Book not found in database');
+        res.send(bookById);
+        console.log("Book updated successfully");
+    } catch (err) {
+        res.status(400).send(err.message);
+    }
+};
