@@ -39,3 +39,14 @@ exports.updateBook = async (req, res) => {
         res.status(400).send(err.message);
     }
 };
+
+exports.deleteBook = async (req, res) => {
+    try {
+        const bookById = await BookModel.findByIdAndDelete(req.params.id);
+        if (!bookById) return res.status(404).send('Book not found in database');
+        res.status(204).send();
+        res.send("Book deleted successfully");
+    } catch (err) {
+        res.status(400).send(err.message);
+    }
+};
