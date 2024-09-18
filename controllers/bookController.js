@@ -18,3 +18,13 @@ exports.getAllBooks = async (req, res) => {
         res.status(400).send(err.message);
     }
 };
+
+exports.getBookById = async (req, res) => {
+    try {
+        const bookById = await BookModel.findById(req.params.id);
+        if (!bookById) return res.status(404).send('Book not found in database');
+        res.send(bookById);
+    } catch (err) {
+        res.status(400).send(err.message);
+    }
+};
